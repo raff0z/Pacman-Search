@@ -9,12 +9,12 @@
 <title>Query Results</title>
 </head>
 <body>
-	<p>Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></p>
+	<p><a href="query.do?query=<% out.print(request.getAttribute("did you mean"));%>">Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></a></p>
 	<p>Results:</p>
 	<%
 	DocumentResult[] documents = (DocumentResult[]) request.getAttribute("results");
 		for (DocumentResult doc : documents){
-			%><a href="<% out.print(doc.getPath()); %>" >
+			%><a href="<% out.print("file://" + doc.getPath()); %>" target="_blank">
 				 Title: <% out.print(doc.getTitle()); %>
 			</a>
 			<p> Score: <% out.print(doc.getScore()); %></p>
