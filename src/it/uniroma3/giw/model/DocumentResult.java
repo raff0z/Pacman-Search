@@ -45,6 +45,10 @@ public class DocumentResult {
 		return this.document.get("shortPath");
 	}
 	
+	public String getInvertedIndex() {
+		return this.document.get("invertedIndex");
+	}
+	
 }	
 	
 	

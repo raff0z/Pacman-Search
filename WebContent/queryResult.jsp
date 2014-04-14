@@ -9,6 +9,7 @@
 <title>Query Results</title>
 </head>
 <body>
+	<p>Forse cercavi: <% request.getAttribute("did you mean");%></p>
 	<p>Results:</p>
 	<%
 	DocumentResult[] documents = (DocumentResult[]) request.getAttribute("results");

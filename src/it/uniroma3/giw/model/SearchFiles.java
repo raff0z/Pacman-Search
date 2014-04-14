@@ -3,16 +3,21 @@ package it.uniroma3.giw.model;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Fields;
 import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.spell.PlainTextDictionary;
+import org.apache.lucene.search.spell.SpellChecker;
+import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
 
@@ -56,6 +61,26 @@ public class SearchFiles {
 		}
 		return documents;
 	}
+	
+//	public String[] getDidYouMean(String query) throws IOException {
+//		File dir = new File("/Users/Alessio/Documents/spellchecker");
+//
+//
+//
+//		Directory directory = FSDirectory.open(dir);
+//		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+//		IndexWriterConfig ic = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+//		
+//
+//		SpellChecker spellChecker = new SpellChecker(directory);
+//
+//		spellChecker.indexDictionary(new PlainTextDictionary(new File("/Users/Alessio/Documents/dictionary/fulldictionary00.txt")), ic, false);
+//
+//
+//
+//		return spellChecker.suggestSimilar(query, 1);
+//
+//	}
 
 	private static Fields getInvertedIndex(int docID){
 		return null;
