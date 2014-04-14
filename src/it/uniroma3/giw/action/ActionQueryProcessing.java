@@ -6,6 +6,7 @@ import it.uniroma3.giw.model.SearchFiles;
 
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,14 +25,13 @@ public class ActionQueryProcessing implements Action {
 			try {
 				searchFiles = new SearchFiles(indextPath);
 				DocumentResult[] hits = searchFiles.doSearch(query);
-				// String[] didYouMean = searchFiles.getDidYouMean(query);
+				String[] didYouMean = searchFiles.getDidYouMean(query);
 
 
 
 
 
-
-				// request.setAttribute("did you mean", didYouMean[0]);
+				request.setAttribute("did you mean", didYouMean[0]);
 				request.setAttribute("results", hits);
 				return "results";
 			} catch (ParseException | IOException e) {

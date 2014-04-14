@@ -68,8 +68,8 @@ public class SearchFiles {
 
 
 		Directory directory = FSDirectory.open(dir);
-		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-		IndexWriterConfig ic = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+		
+		IndexWriterConfig ic = new IndexWriterConfig(Version.LUCENE_47, this.analyzer);
 		
 
 		SpellChecker spellChecker = new SpellChecker(directory);
