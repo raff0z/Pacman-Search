@@ -62,25 +62,25 @@ public class SearchFiles {
 		return documents;
 	}
 	
-//	public String[] getDidYouMean(String query) throws IOException {
-//		File dir = new File("/Users/Alessio/Documents/spellchecker");
-//
-//
-//
-//		Directory directory = FSDirectory.open(dir);
-//		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
-//		IndexWriterConfig ic = new IndexWriterConfig(Version.LUCENE_47, analyzer);
-//		
-//
-//		SpellChecker spellChecker = new SpellChecker(directory);
-//
-//		spellChecker.indexDictionary(new PlainTextDictionary(new File("/Users/Alessio/Documents/dictionary/fulldictionary00.txt")), ic, false);
-//
-//
-//
-//		return spellChecker.suggestSimilar(query, 1);
-//
-//	}
+	public String[] getDidYouMean(String query) throws IOException {
+		File dir = new File("/Users/Alessio/Documents/spellchecker");
+
+
+
+		Directory directory = FSDirectory.open(dir);
+		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_47);
+		IndexWriterConfig ic = new IndexWriterConfig(Version.LUCENE_47, analyzer);
+		
+
+		SpellChecker spellChecker = new SpellChecker(directory);
+
+		spellChecker.indexDictionary(new PlainTextDictionary(new File("/Users/Alessio/Documents/dictionary/fulldictionary00.txt")), ic, false);
+
+
+
+		return spellChecker.suggestSimilar(query, 1);
+
+	}
 
 	private static Fields getInvertedIndex(int docID){
 		return null;
