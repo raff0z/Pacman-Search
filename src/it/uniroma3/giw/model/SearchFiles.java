@@ -15,6 +15,8 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.spell.Dictionary;
+import org.apache.lucene.search.spell.LuceneDictionary;
 import org.apache.lucene.search.spell.PlainTextDictionary;
 import org.apache.lucene.search.spell.SpellChecker;
 import org.apache.lucene.store.Directory;
@@ -63,22 +65,16 @@ public class SearchFiles {
 	}
 	
 	public String[] getDidYouMean(String query) throws IOException {
-		File dir = new File("/Users/Alessio/Documents/spellchecker");
-
-
-
+		DocumentIO io = new DocumentIO();
+		File dir = new File(io.getSpellCheckerPath());
 		Directory directory = FSDirectory.open(dir);
-		
-		IndexWriterConfig ic = new IndexWriterConfig(Version.LUCENE_47, this.analyzer);
-		
-
 		SpellChecker spellChecker = new SpellChecker(directory);
 
-		spellChecker.indexDictionary(new PlainTextDictionary(new File("/Users/Alessio/Documents/dictionary/fulldictionary00.txt")), ic, false);
-
-
-
-		return spellChecker.suggestSimilar(query, 1);
+		String[] results = spellChecker.suggestSimilar(query, 5);
+		
+		spellChecker.close();
+		
+		return results;
 
 	}
 

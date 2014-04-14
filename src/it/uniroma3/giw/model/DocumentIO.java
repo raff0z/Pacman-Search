@@ -8,7 +8,8 @@ public class DocumentIO {
 
 	private String indexPath;
 	private String documentPath;
-
+	private String spellCheckerPath; 
+	
 	public DocumentIO(){
 		Properties conf = new Properties();
 		try {
@@ -23,6 +24,7 @@ public class DocumentIO {
 
 		this.indexPath = conf.getProperty("index-path");
 		this.documentPath = conf.getProperty("documents-path");
+		this.spellCheckerPath = conf.getProperty("spell-checker-path");
 	}
 
 	public String getIndexPath() {
@@ -33,6 +35,8 @@ public class DocumentIO {
 		return documentPath;
 	}
 
-
+	public String getSpellCheckerPath() {
+		return spellCheckerPath;
+	}
 
 }
