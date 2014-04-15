@@ -19,6 +19,9 @@
 			</a>
 			<p> Score: <% out.print(doc.getScore()); %></p>
 			<p> Path: <% out.print(doc.getShortPath()); %></p>
+			<p> Contenuto: <% 
+			out.print(doc.getNear()); 
+			%></p>
 			
 		<%}%>
 </body>

@@ -7,6 +7,7 @@ public class DocumentResult {
 
 	private ScoreDoc scoreDoc;
 	private Document document;
+	private String near; 
 	
 	public DocumentResult(ScoreDoc scoreDoc, Document document) {
 		this.setScoreDoc(scoreDoc);
@@ -47,6 +48,14 @@ public class DocumentResult {
 	
 	public String getInvertedIndex() {
 		return this.document.get("invertedIndex");
+	}
+
+	public String getNear() {
+		return near;
+	}
+
+	public void setNear(String near) {
+		this.near = near;
 	}
 	
 }	

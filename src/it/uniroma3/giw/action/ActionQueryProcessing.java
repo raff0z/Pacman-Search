@@ -4,14 +4,13 @@ import it.uniroma3.giw.model.DocumentIO;
 import it.uniroma3.giw.model.DocumentResult;
 import it.uniroma3.giw.model.SearchFiles;
 
-
 import java.io.IOException;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 public class ActionQueryProcessing implements Action {
 
@@ -34,7 +33,7 @@ public class ActionQueryProcessing implements Action {
 				request.setAttribute("did you mean", didYouMean[0]);
 				request.setAttribute("results", hits);
 				return "results";
-			} catch (ParseException | IOException e) {
+			} catch (ParseException | IOException | InvalidTokenOffsetsException e) {
 				e.printStackTrace();
 			}
 		}

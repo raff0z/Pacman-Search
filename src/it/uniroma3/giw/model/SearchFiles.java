@@ -2,8 +2,11 @@ package it.uniroma3.giw.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
+import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.Fields;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -12,6 +15,12 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.highlight.Fragmenter;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
+import org.apache.lucene.search.highlight.TokenSources;
 import org.apache.lucene.search.spell.SpellChecker;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -32,7 +41,7 @@ public class SearchFiles {
 		this.analyzer = new StandardAnalyzer(Version.LUCENE_47);	
 	}
 
-	public DocumentResult[] doSearch(String query) throws ParseException, IOException{
+	public DocumentResult[] doSearch(String query) throws ParseException, IOException, InvalidTokenOffsetsException{
 		QueryParser parser = new QueryParser(Version.LUCENE_47, field, this.analyzer);
 		Query queryObj = parser.parse(query);
 		
@@ -41,10 +50,16 @@ public class SearchFiles {
 		ScoreDoc[] hits = results.scoreDocs;
 		DocumentResult[] documents = new DocumentResult[hits.length];
 		
+		QueryScorer scorer = new QueryScorer(queryObj, "contents");
+		Highlighter highlighter = new Highlighter(scorer); 
+		
 		for (int i=0; i<hits.length; i++){
-			documents[i] = new DocumentResult(hits[i], searcher.doc(hits[i].doc));
-			Fields invertedIndex = getInvertedIndex(documents[i].getScoreDoc().doc);
+			Document document = searcher.doc(hits[i].doc);
+			String[] fragment = highlighter.getBestFragments(this.analyzer, "contents", document.get("contents"),1);
 
+			DocumentResult documentResult = new DocumentResult(hits[i], document);
+			documentResult.setNear(Arrays.toString( fragment ));
+			documents[i] = documentResult;
 
 
 		}
