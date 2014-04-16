@@ -9,7 +9,9 @@
 <title>Query Results</title>
 </head>
 <body>
+	<%if(request.getAttribute("did you mean") != null) {%>
 	<p><a href="query.do?query=<% out.print(request.getAttribute("did you mean"));%>">Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></a></p>
+	<%}%>
 	<p>Results:</p>
 	<%
 	DocumentResult[] documents = (DocumentResult[]) request.getAttribute("results");

@@ -14,6 +14,7 @@ import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
 public class ActionQueryProcessing implements Action {
 
+	private static final float THRESHOLD = 0.3f;
 	@Override
 	public String execute(HttpServletRequest request) {
 		String query = request.getParameter("query");
@@ -24,13 +25,17 @@ public class ActionQueryProcessing implements Action {
 			try {
 				searchFiles = new SearchFiles(indextPath);
 				DocumentResult[] hits = searchFiles.doSearch(query);
-				String[] didYouMean = searchFiles.getDidYouMean(query);
+
+				//gestione del "forse cercavi"
+				if(hits.length == 0 || hits[0].getScore() <= THRESHOLD) {
 
 
+						String[] didYouMean = searchFiles.getDidYouMean(query);
 
+						request.setAttribute("did you mean", didYouMean[0]);
 
+				}	
 
-				request.setAttribute("did you mean", didYouMean[0]);
 				request.setAttribute("results", hits);
 				return "results";
 			} catch (ParseException | IOException | InvalidTokenOffsetsException e) {
