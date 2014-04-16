@@ -79,9 +79,4 @@ public class SearchFiles {
 		return results;
 
 	}
-
-	private static Fields getInvertedIndex(int docID){
-		return null;
-		//return new IndexReader().getTermVectors(docID);  //TODO Da sistemare
-	}
 }
