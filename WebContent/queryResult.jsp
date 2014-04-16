@@ -26,5 +26,19 @@
 			%></p>
 			
 		<%}%>
+		
+		
+	<p>Correlati:</p>
+	<%
+	String[] correlati = (String[]) request.getAttribute("keywords");
+		for (String doc : correlati){
+			%>
+			<p> Keyword: <% 
+			out.print(doc); 
+			%></p>
+			
+		<%}%>
+		
+		
 </body>
 </html>

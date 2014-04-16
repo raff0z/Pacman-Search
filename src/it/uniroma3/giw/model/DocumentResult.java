@@ -58,6 +58,10 @@ public class DocumentResult {
 		this.near = near;
 	}
 	
+	public String getKeywords() {
+		return this.document.get("keywords");
+	}
+	
 }	
 	
 	

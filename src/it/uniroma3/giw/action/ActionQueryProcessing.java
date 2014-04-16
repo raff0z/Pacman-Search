@@ -6,6 +6,8 @@ import it.uniroma3.giw.model.SearchFiles;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,6 +37,14 @@ public class ActionQueryProcessing implements Action {
 						request.setAttribute("did you mean", didYouMean[0]);
 
 				}	
+				
+				
+				if(hits.length > 0) {
+					String[] keywords = hits[0].getKeywords().split(",");
+					request.setAttribute("keywords", keywords);
+					
+					
+				}
 
 				request.setAttribute("results", hits);
 				return "results";
@@ -45,5 +55,9 @@ public class ActionQueryProcessing implements Action {
 
 		return "error";
 	}
+		
+		
+		
+	
 
 }
