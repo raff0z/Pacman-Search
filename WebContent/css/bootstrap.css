@@ -5959,3 +5959,8 @@ button.close {
   text-align: right;
   color: #bebec5;
 }
+
+.logo {
+	padding: 10% 0px 20px 0px;
+	margin-left: 40%;
+}
