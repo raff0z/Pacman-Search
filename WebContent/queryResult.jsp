@@ -16,7 +16,7 @@
 		
 		<form action="query.do" method="POST">
 			<div class="input-group">
-     			 <input type="text" class="form-control">
+     			 <input type="text" class="form-control" value=<% out.print(request.getAttribute("query")); %> name="query" >
 			      <span class="input-group-btn">
 			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" >Go!</button>
 			      </span>
@@ -52,7 +52,7 @@
 									 <% out.print(doc.getTitle()); %>
 								</a>
 								</h4>
-	<%-- 							<p> Score: <% out.print(doc.getScore()); %></p> --%>
+								<p> Score: <% out.print(doc.getScore()); %></p>
 								<div>
 									<h6>
 										<font color="green">

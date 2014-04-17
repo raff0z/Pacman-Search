@@ -11,7 +11,7 @@
 		<div class="col-lg-6 col-lg-offset-3">
 			<form class="form-group" action="query.do" method="POST">
 				<div class="input-group">
-	     			 <input type="text" class="form-control">
+	     			 <input type="text" class="form-control" name="query">
 				      <span class="input-group-btn">
 				        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" >Go!</button>
 				      </span>

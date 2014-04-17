@@ -45,7 +45,7 @@ public class ActionQueryProcessing implements Action {
 					
 					
 				}
-
+				request.setAttribute("query", query);
 				request.setAttribute("results", hits);
 				return "results";
 			} catch (ParseException | IOException | InvalidTokenOffsetsException e) {
