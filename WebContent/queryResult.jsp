@@ -16,7 +16,7 @@
 		
 		<form action="query.do" method="POST">
 			<div class="input-group">
-     			 <input type="text" class="form-control" value=<% out.print(request.getAttribute("query")); %> name="query" >
+     			 <input type="text" class="form-control" value=<% out.print(request.getAttribute("query")); %> name="query" required >
 			      <span class="input-group-btn">
 			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" >Go!</button>
 			      </span>
