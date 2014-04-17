@@ -16,7 +16,7 @@
 		
 		<form action="query.do" method="POST">
 			<div class="input-group">
-     			 <input type="text" class="form-control" value=<% out.print(request.getAttribute("query")); %> name="query" required >
+     			 <input type="text" class="form-control" value="<% out.print(request.getAttribute("query")); %>" name="query" required >
 			      <span class="input-group-btn">
 			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" >Go!</button>
 			      </span>
@@ -62,6 +62,11 @@
 										</font>
 									</h6>
 								</div>
+								<div>
+									<a href="query.do?query=<% out.print(doc.getMoreLikeThis()); %>" >
+									 Similar
+									</a>
+								</div>
 							</div>
 							<div class="highlight">
 								<p>
@@ -91,16 +96,6 @@
 					
 				<%}
 				}%>
-				<h1>NEW METHOD</h1>
-				<%
-				DocumentResult[] mlts = (DocumentResult[]) request.getAttribute("more like this");
-				for (DocumentResult doc : mlts ){
-					%>
-					<p> Keyword: <% 
-					out.print(doc.getTitle()); 
-					%></p>
-					
-				<%}%>
 		</div>
 	</div>
 </body>

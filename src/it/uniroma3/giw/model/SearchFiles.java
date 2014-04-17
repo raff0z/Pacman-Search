@@ -2,6 +2,7 @@ package it.uniroma3.giw.model;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
@@ -54,6 +55,7 @@ public class SearchFiles {
 
 			DocumentResult documentResult = new DocumentResult(hits[i], document);
 			documentResult.setNear( fragments );
+			documentResult.setMoreLikeThis(getMoreLikeThis(hits[i]));
 			documents[i] = documentResult;
 
 
@@ -76,28 +78,21 @@ public class SearchFiles {
 
 	}
 	
-	public DocumentResult[] getMoreLikeThis(ScoreDoc hit) throws IOException{
+	public String getMoreLikeThis(ScoreDoc hit) throws IOException, ParseException{
 	    MoreLikeThis mlt = new MoreLikeThis(this.reader);
 	    mlt.setAnalyzer(analyzer);
 
 	    Query query = mlt.like(hit.doc);
 	    
-//	    System.out.println(query.toString());
+	    String queryString = query.toString();
+	    int indexQueryShort = queryString.indexOf(" ");
 	    
-	    TopDocs results = searcher.search(query, 5 * hitsPerPage);
-	    ScoreDoc[] hits = results.scoreDocs;
+	    String queryShort = queryString.substring(indexQueryShort,queryString.length());
 	    
-	    DocumentResult[] documents = new DocumentResult[hits.length];
-		
-
-	    for (int i=0; i<hits.length; i++){
-		Document document = searcher.doc(hits[i].doc);
-
-		DocumentResult documentResult = new DocumentResult(hits[i], document);
-		documents[i] = documentResult;
-
-
-	    }
-	    return documents;
+	    String splitted = Arrays.toString(queryShort.split("contents:"));
+	    
+	    splitted = splitted.substring(4,splitted.length()-1);
+	    
+	    return splitted;
 	}
 }
