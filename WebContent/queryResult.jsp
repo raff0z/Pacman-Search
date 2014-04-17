@@ -1,3 +1,4 @@
+<%@page import="org.apache.lucene.search.ScoreDoc"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="it.uniroma3.giw.model.DocumentResult"%>
@@ -90,6 +91,16 @@
 					
 				<%}
 				}%>
+				<h1>NEW METHOD</h1>
+				<%
+				DocumentResult[] mlts = (DocumentResult[]) request.getAttribute("more like this");
+				for (DocumentResult doc : mlts ){
+					%>
+					<p> Keyword: <% 
+					out.print(doc.getTitle()); 
+					%></p>
+					
+				<%}%>
 		</div>
 	</div>
 </body>

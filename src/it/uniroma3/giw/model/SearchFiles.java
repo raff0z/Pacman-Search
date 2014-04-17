@@ -2,25 +2,20 @@ package it.uniroma3.giw.model;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
-import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.Fields;
+import org.apache.lucene.queries.mlt.MoreLikeThis;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.highlight.Fragmenter;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
-import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
-import org.apache.lucene.search.highlight.TokenSources;
 import org.apache.lucene.search.spell.SpellChecker;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -32,7 +27,7 @@ public class SearchFiles {
 	private StandardAnalyzer analyzer;
 	private IndexSearcher searcher;
 	private DirectoryReader reader;
-
+	
 	private int hitsPerPage = 10;
 
 	public SearchFiles(String indexPath) throws IOException{
@@ -63,6 +58,7 @@ public class SearchFiles {
 
 
 		}
+		
 		return documents;
 	}
 	
@@ -78,5 +74,30 @@ public class SearchFiles {
 		
 		return results;
 
+	}
+	
+	public DocumentResult[] getMoreLikeThis(ScoreDoc hit) throws IOException{
+	    MoreLikeThis mlt = new MoreLikeThis(this.reader);
+	    mlt.setAnalyzer(analyzer);
+
+	    Query query = mlt.like(hit.doc);
+	    
+//	    System.out.println(query.toString());
+	    
+	    TopDocs results = searcher.search(query, 5 * hitsPerPage);
+	    ScoreDoc[] hits = results.scoreDocs;
+	    
+	    DocumentResult[] documents = new DocumentResult[hits.length];
+		
+
+	    for (int i=0; i<hits.length; i++){
+		Document document = searcher.doc(hits[i].doc);
+
+		DocumentResult documentResult = new DocumentResult(hits[i], document);
+		documents[i] = documentResult;
+
+
+	    }
+	    return documents;
 	}
 }

@@ -45,7 +45,11 @@ public class ActionQueryProcessing implements Action {
 					
 					
 				}
+				
+				DocumentResult[] mlts = searchFiles.getMoreLikeThis(hits[0].getScoreDoc());
+				
 				request.setAttribute("query", query);
+				request.setAttribute("more like this", mlts);
 				request.setAttribute("results", hits);
 				return "results";
 			} catch (ParseException | IOException | InvalidTokenOffsetsException e) {

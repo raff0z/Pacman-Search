@@ -8,6 +8,7 @@ public class DocumentResult {
 	private ScoreDoc scoreDoc;
 	private Document document;
 	private String[] near; 
+	private ScoreDoc[] moreLikeThis;
 	
 	public DocumentResult(ScoreDoc scoreDoc, Document document) {
 		this.setScoreDoc(scoreDoc);
@@ -61,6 +62,16 @@ public class DocumentResult {
 	public String getKeywords() {
 		return this.document.get("keywords");
 	}
+
+	public ScoreDoc[] getMoreLikeThis() {
+	    return moreLikeThis;
+	}
+
+	public void setMoreLikeThis(ScoreDoc[] moreLikeThis) {
+	    this.moreLikeThis = moreLikeThis;
+	}
+	
+	
 	
 }	
 	
