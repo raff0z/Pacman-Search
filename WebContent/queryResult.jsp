@@ -7,8 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Query Results</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/docs.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 </head>
 <body >
 	<div class="container">
