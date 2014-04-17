@@ -33,8 +33,8 @@ public class ActionQueryProcessing implements Action {
 
 
 						String[] didYouMean = searchFiles.getDidYouMean(query);
-
-						request.setAttribute("did you mean", didYouMean[0]);
+						if(didYouMean.length != 0)
+						    request.setAttribute("did you mean", didYouMean[0]);
 
 				}	
 				

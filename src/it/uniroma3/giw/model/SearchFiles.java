@@ -55,10 +55,10 @@ public class SearchFiles {
 		
 		for (int i=0; i<hits.length; i++){
 			Document document = searcher.doc(hits[i].doc);
-			String[] fragment = highlighter.getBestFragments(this.analyzer, "contents", document.get("contents"),1);
+			String[] fragments = highlighter.getBestFragments(this.analyzer, "contents", document.get("contents"),3);
 
 			DocumentResult documentResult = new DocumentResult(hits[i], document);
-			documentResult.setNear(Arrays.toString( fragment ));
+			documentResult.setNear( fragments );
 			documents[i] = documentResult;
 
 
