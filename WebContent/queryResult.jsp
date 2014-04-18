@@ -86,13 +86,11 @@
 			<%
 			String[] correlati = (String[]) request.getAttribute("keywords");
 			if(correlati != null){%>
-				<p>Correlati:</p>
+				<p>Keywords:</p>
 				<%
-				for (String doc : correlati){
+				for (String keyword : correlati){
 					%>
-					<p> Keyword: <% 
-					out.print(doc); 
-					%></p>
+					<p><a href="query.do?query=<% out.print(keyword);%>"><% out.print(keyword);%></a></p>
 					
 				<%}
 				}%>
