@@ -88,7 +88,7 @@ public class SearchFiles {
 	    
 	    String splitted = Arrays.toString(queryString.split("contents:"));
 	    
-	    splitted = splitted.substring(4,splitted.length()-1);
+	    splitted = splitted.substring(3,splitted.length()-1);
 	    
 	    return splitted;
 	}
