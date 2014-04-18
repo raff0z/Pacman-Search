@@ -85,11 +85,8 @@ public class SearchFiles {
 	    Query query = mlt.like(hit.doc);
 	    
 	    String queryString = query.toString();
-	    int indexQueryShort = queryString.indexOf(" ");
 	    
-	    String queryShort = queryString.substring(indexQueryShort,queryString.length());
-	    
-	    String splitted = Arrays.toString(queryShort.split("contents:"));
+	    String splitted = Arrays.toString(queryString.split("contents:"));
 	    
 	    splitted = splitted.substring(4,splitted.length()-1);
 	    
