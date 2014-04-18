@@ -51,7 +51,15 @@ public class ActionQueryProcessing implements Action {
 					
 				}
 				
+				int totalPages;
 				
+				if(hits.length % 10 == 0){
+				    totalPages = hits.length/10;
+				}else{
+				    totalPages = hits.length/10 +1;
+				}
+				
+				request.setAttribute("totalPages", totalPages);
 				request.setAttribute("query", query);
 				request.setAttribute("results", hits);
 				return "results";

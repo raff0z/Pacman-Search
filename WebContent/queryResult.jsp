@@ -95,6 +95,14 @@
 				<%}
 				}%>
 		</div>
+		
+		<div>
+			<%
+			Integer pages = (Integer) request.getAttribute("totalPages");
+			for(int i=1 ; i<= pages; i++ )
+				out.print("<a>"+i+"</a>");
+			%>
+		</div>
 	</div>
 </body>
 </html>

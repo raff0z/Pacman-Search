@@ -26,7 +26,7 @@ public class SearchFilesOriginale {
   private SearchFilesOriginale() {}
 
   /** Simple command-line based search demo. */
-  public static void start(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
     String usage =
       "Usage:\tjava org.apache.lucene.demo.SearchFiles [-index dir] [-field f] [-repeat n] [-queries file] [-query string] [-raw] [-paging hitsPerPage]\n\nSee http://lucene.apache.org/core/4_1_0/demo/ for details.";
     if (args.length > 0 && ("-h".equals(args[0]) || "-help".equals(args[0]))) {
@@ -34,7 +34,7 @@ public class SearchFilesOriginale {
       System.exit(0);
     }
 
-    String index = "index";
+    String index = "/home/raff0z/Documenti/SitiGIW/index/";
     String field = "contents";
     String queries = null;
     int repeat = 0;

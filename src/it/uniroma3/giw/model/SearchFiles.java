@@ -14,6 +14,7 @@ import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.TotalHitCountCollector;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
@@ -41,9 +42,14 @@ public class SearchFiles {
 		QueryParser parser = new QueryParser(Version.LUCENE_47, field, this.analyzer);
 		Query queryObj = parser.parse(query);
 		
-		TopDocs results = searcher.search(queryObj, 5 * hitsPerPage);
+		TotalHitCountCollector totalHitCountCollector = new TotalHitCountCollector();
+		searcher.search(queryObj, totalHitCountCollector);
+		TopDocs results = searcher.search(queryObj, totalHitCountCollector.getTotalHits());
+		
+		//TODO pagination
 		
 		ScoreDoc[] hits = results.scoreDocs;
+		System.out.println(hits.length);
 		DocumentResult[] documents = new DocumentResult[hits.length];
 		
 		QueryScorer scorer = new QueryScorer(queryObj, "contents");
