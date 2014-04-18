@@ -29,7 +29,7 @@ public class SearchFiles {
 	private StandardAnalyzer analyzer;
 	private IndexSearcher searcher;
 	private DirectoryReader reader;
-	
+
 	private int hitsPerPage = 10;
 
 	public SearchFiles(String indexPath) throws IOException{
@@ -41,20 +41,17 @@ public class SearchFiles {
 	public DocumentResult[] doSearch(String query) throws ParseException, IOException, InvalidTokenOffsetsException{
 		QueryParser parser = new QueryParser(Version.LUCENE_47, field, this.analyzer);
 		Query queryObj = parser.parse(query);
-		
-		TotalHitCountCollector totalHitCountCollector = new TotalHitCountCollector();
-		searcher.search(queryObj, totalHitCountCollector);
-		TopDocs results = searcher.search(queryObj, totalHitCountCollector.getTotalHits());
-		
+
+		TopDocs results = searcher.search(queryObj, 5 * hitsPerPage);
 		//TODO pagination
-		
+
 		ScoreDoc[] hits = results.scoreDocs;
-		System.out.println(hits.length);
+		//System.out.println(hits.length);
 		DocumentResult[] documents = new DocumentResult[hits.length];
-		
+
 		QueryScorer scorer = new QueryScorer(queryObj, "contents");
 		Highlighter highlighter = new Highlighter(scorer); 
-		
+
 		for (int i=0; i<hits.length; i++){
 			Document document = searcher.doc(hits[i].doc);
 			String[] fragments = highlighter.getBestFragments(this.analyzer, "contents", document.get("contents"),3);
@@ -66,10 +63,10 @@ public class SearchFiles {
 
 
 		}
-		
+
 		return documents;
 	}
-	
+
 	public String[] getDidYouMean(String query) throws IOException {
 		DocumentIO io = new DocumentIO();
 		File dir = new File(io.getSpellCheckerPath());
@@ -77,25 +74,25 @@ public class SearchFiles {
 		SpellChecker spellChecker = new SpellChecker(directory);
 
 		String[] results = spellChecker.suggestSimilar(query, 5);
-		
+
 		spellChecker.close();
-		
+
 		return results;
 
 	}
-	
-	public String getMoreLikeThis(ScoreDoc hit) throws IOException, ParseException{
-	    MoreLikeThis mlt = new MoreLikeThis(this.reader);
-	    mlt.setAnalyzer(analyzer);
 
-	    Query query = mlt.like(hit.doc);
-	    
-	    String queryString = query.toString();
-	    
-	    String splitted = Arrays.toString(queryString.split("contents:"));
-	    
-	    splitted = splitted.substring(3,splitted.length()-1);
-	    
-	    return splitted;
+	public String getMoreLikeThis(ScoreDoc hit) throws IOException, ParseException{
+		MoreLikeThis mlt = new MoreLikeThis(this.reader);
+		mlt.setAnalyzer(analyzer);
+
+		Query query = mlt.like(hit.doc);
+
+		String queryString = query.toString();
+
+		String splitted = Arrays.toString(queryString.split("contents:"));
+
+		splitted = splitted.substring(3,splitted.length()-1);
+
+		return splitted;
 	}
 }
