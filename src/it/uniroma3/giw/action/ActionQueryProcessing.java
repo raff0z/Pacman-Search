@@ -26,7 +26,21 @@ public class ActionQueryProcessing implements Action {
 			SearchFiles searchFiles;
 			try {
 				searchFiles = new SearchFiles(indextPath);
-				DocumentResult[] hits = searchFiles.doSearch(query);
+				
+				String stringStart = (String) request.getParameter("start");
+				
+				DocumentResult[] hits;
+				
+				int start; 
+				
+				if((stringStart == null)){
+				    start = 1;
+				}else{
+				    start = Integer.parseInt(stringStart);
+				}
+				
+				hits = searchFiles.doSearch(query,start);
+				    
 
 				//gestione del "forse cercavi"
 				if(hits.length == 0 || hits[0].getScore() <= THRESHOLD) {
@@ -53,10 +67,12 @@ public class ActionQueryProcessing implements Action {
 				
 				int totalPages;
 				
-				if(hits.length % 10 == 0){
-				    totalPages = hits.length/10;
+				int totalDoc = searchFiles.getTotalDoc();
+				
+				if(totalDoc % 10 == 0){
+				    totalPages = totalDoc/10;
 				}else{
-				    totalPages = hits.length/10 +1;
+				    totalPages = totalDoc/10 +1;
 				}
 				
 				request.setAttribute("totalPages", totalPages);

@@ -97,11 +97,20 @@
 		</div>
 		
 		<div>
-			<%
-			Integer pages = (Integer) request.getAttribute("totalPages");
-			for(int i=1 ; i<= pages; i++ )
-				out.print("<a>"+i+"</a>");
-			%>
+			<ul class="pagination">
+	
+				<%
+				Integer pages = (Integer) request.getAttribute("totalPages");
+				for(int i=1 ; i<= pages; i++ ){
+				%>
+				<li><a href="query.do?query=<% out.print(request.getAttribute("query"));%>&start=<% out.print(i);%>">
+				<%
+					out.print(i);
+				%></a></li>
+				<%
+				}
+				%>
+			</ul>
 		</div>
 	</div>
 </body>

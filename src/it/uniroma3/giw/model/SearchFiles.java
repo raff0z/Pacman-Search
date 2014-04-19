@@ -29,7 +29,8 @@ public class SearchFiles {
 	private StandardAnalyzer analyzer;
 	private IndexSearcher searcher;
 	private DirectoryReader reader;
-
+	private int totalDoc;
+	
 	private int hitsPerPage = 10;
 
 	public SearchFiles(String indexPath) throws IOException{
@@ -38,28 +39,32 @@ public class SearchFiles {
 		this.analyzer = new StandardAnalyzer(Version.LUCENE_47);	
 	}
 
-	public DocumentResult[] doSearch(String query) throws ParseException, IOException, InvalidTokenOffsetsException{
+	public DocumentResult[] doSearch(String query, int start) throws ParseException, IOException, InvalidTokenOffsetsException{
 		QueryParser parser = new QueryParser(Version.LUCENE_47, field, this.analyzer);
 		Query queryObj = parser.parse(query);
 
-		TopDocs results = searcher.search(queryObj, 5 * hitsPerPage);
+		TopDocs results = searcher.search(queryObj, start * hitsPerPage);
 		//TODO pagination
-
-		ScoreDoc[] hits = results.scoreDocs;
+		
+		totalDoc = results.totalHits; 
+		
+			ScoreDoc[] hits = results.scoreDocs;
 		//System.out.println(hits.length);
-		DocumentResult[] documents = new DocumentResult[hits.length];
+		DocumentResult[] documents = new DocumentResult[hitsPerPage];
 
 		QueryScorer scorer = new QueryScorer(queryObj, "contents");
 		Highlighter highlighter = new Highlighter(scorer); 
-
-		for (int i=0; i<hits.length; i++){
+		
+		int realStart =  (start-1)*hitsPerPage;
+		
+		for (int i = realStart ; i < realStart + hitsPerPage; i++){
 			Document document = searcher.doc(hits[i].doc);
 			String[] fragments = highlighter.getBestFragments(this.analyzer, "contents", document.get("contents"),3);
 
 			DocumentResult documentResult = new DocumentResult(hits[i], document);
 			documentResult.setNear( fragments );
 			documentResult.setMoreLikeThis(getMoreLikeThis(hits[i]));
-			documents[i] = documentResult;
+			documents[i-realStart] = documentResult;
 
 
 		}
@@ -95,4 +100,19 @@ public class SearchFiles {
 
 		return splitted;
 	}
+
+	public int getTotalDoc() {
+	    return totalDoc;
+	}
+
+	public int getHitsPerPage() {
+	    return hitsPerPage;
+	}
+
+	public void setHitsPerPage(int hitsPerPage) {
+	    this.hitsPerPage = hitsPerPage;
+	}
+	
+	
+	
 }
