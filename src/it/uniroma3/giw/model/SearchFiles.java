@@ -50,14 +50,23 @@ public class SearchFiles {
 		
 			ScoreDoc[] hits = results.scoreDocs;
 		//System.out.println(hits.length);
-		DocumentResult[] documents = new DocumentResult[hitsPerPage];
+		DocumentResult[] documents;
 
 		QueryScorer scorer = new QueryScorer(queryObj, "contents");
 		Highlighter highlighter = new Highlighter(scorer); 
 		
 		int realStart =  (start-1)*hitsPerPage;
 		
-		for (int i = realStart ; i < realStart + hitsPerPage; i++){
+		int end = realStart + hitsPerPage;
+		
+		if(end>=totalDoc){
+		    documents = new DocumentResult[totalDoc - realStart];
+		    end = totalDoc;
+		}else{
+		    documents = new DocumentResult[hitsPerPage];
+		}
+		
+		for (int i = realStart ; i < end; i++){
 			Document document = searcher.doc(hits[i].doc);
 			String[] fragments = highlighter.getBestFragments(this.analyzer, "contents", document.get("contents"),3);
 
