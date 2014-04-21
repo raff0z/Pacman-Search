@@ -43,7 +43,7 @@ public class ActionQueryProcessing implements Action {
 				    
 
 				//gestione del "forse cercavi"
-				if(hits.length == 0 || hits[0].getScore() <= THRESHOLD) {
+				if((hits.length == 0 || hits[0].getScore() <= THRESHOLD)&&(start == 1)) {
 
 
 						String[] didYouMean = searchFiles.getDidYouMean(query);

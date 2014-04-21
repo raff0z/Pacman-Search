@@ -26,7 +26,7 @@
 		
 		
 			<%if(request.getAttribute("did you mean") != null) {%>
-			<p><a href="query.do?query=<% out.print(request.getAttribute("did you mean"));%>">Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></a></p>
+			<p class="voffset2"><a href="query.do?query=<% out.print(request.getAttribute("did you mean"));%>"><strong>Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></strong></a></p>
 			<%}%>
 			
 			<%
