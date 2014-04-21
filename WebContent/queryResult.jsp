@@ -11,14 +11,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 </head>
 <body >
-	<div class="container">
+	<div class="container voffset2	">
 		<div  class="col-md-10">
 		
 		<form action="query.do" method="POST">
 			<div class="input-group">
      			 <input type="text" class="form-control" value="<% out.print(request.getAttribute("query")); %>" name="query" required >
 			      <span class="input-group-btn">
-			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" >Go!</button>
+			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" ><i class="glyphicon glyphicon-search glyphicon-search-result"></i></button>
 			      </span>
     		</div>
 		</form>
@@ -48,7 +48,7 @@
 							<li>
 							<div class="bs-example">
 								<h4>
-								<a href="<% out.print("file://" + doc.getPath()); %>" target="_blank">
+								<a href="<% out.print("file:///" + doc.getPath()); %>" target="_blank">
 									 <% out.print(doc.getTitle()); %>
 								</a>
 								</h4>
@@ -80,13 +80,64 @@
 						<%}%>
 					</ul>
 				</div>
+				
+			<div class="text-center">
+				<ul class="pagination">
+		
+					<%
+					Integer pages = (Integer) request.getAttribute("totalPages");
+					String startString = request.getParameter("start");
+					
+					Integer start;
+					if( startString == null){
+					    start = 1;
+					}else{
+					   start = Integer.valueOf(request.getParameter("start"));
+					}
+					
+					Integer end = start + 5;
+					
+					if(end > pages){
+					    end = pages;
+					}
+					
+					Integer realStart = 1;
+					
+					if(start > 5){
+						realStart = start - 6;
+					}
+					
+					for(int i=realStart ; i<= end; i++ ){
+					%>
+						<%if(i != start){ %>
+							<li><a href="query.do?query=<% out.print(request.getAttribute("query"));%>&start=<% out.print(i);%>">
+							<%
+								out.print(i);
+							%></a></li>
+							
+							<%}
+						else{ %>
+							<li class="active"><a>
+							<%
+								out.print(i);
+							%></a></li>
+							<%} %>
+					<%
+					}
+					%>
+				</ul>
+			</div>
 			
 		</div>	
-		<div class="col-md-offset-3">
+		
+		<div class="col-md-offset-10">
 			<%
 			String[] correlati = (String[]) request.getAttribute("keywords");
 			if(correlati != null){%>
-				<p>Keywords:</p>
+			<div class="highlight-inverted">
+				<p class="text-center"><strong>Keywords</strong></p>
+			</div>
+			<div class="bs-example">
 				<%
 				for (String keyword : correlati){
 					%>
@@ -94,23 +145,7 @@
 					
 				<%}
 				}%>
-		</div>
-		
-		<div>
-			<ul class="pagination">
-	
-				<%
-				Integer pages = (Integer) request.getAttribute("totalPages");
-				for(int i=1 ; i<= pages; i++ ){
-				%>
-				<li><a href="query.do?query=<% out.print(request.getAttribute("query"));%>&start=<% out.print(i);%>">
-				<%
-					out.print(i);
-				%></a></li>
-				<%
-				}
-				%>
-			</ul>
+			</div>
 		</div>
 	</div>
 </body>

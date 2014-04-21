@@ -33,7 +33,7 @@
 					<div class="input-group">
 		     			 <input type="text" class="form-control" name="query" value="pacman" required>
 					      <span class="input-group-btn">
-					        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" >Go!</button>
+					        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" ><i class="glyphicon glyphicon-search glyphicon-search-index"></i></button>
 					      </span>
 		    		</div>
 				</form>
