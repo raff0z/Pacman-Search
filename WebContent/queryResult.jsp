@@ -24,7 +24,6 @@
 		</form>
 		
 		
-		
 			<%if(request.getAttribute("did you mean") != null) {%>
 			<p class="voffset2"><a href="query.do?query=<% out.print(request.getAttribute("did you mean"));%>"><strong>Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></strong></a></p>
 			<%}%>
@@ -32,10 +31,11 @@
 			<%
 			DocumentResult[] documents = (DocumentResult[]) request.getAttribute("results");
 				if(documents.length == 0){
-					%> <p>0 Results found!!!</p> <br></br> <%
+					%> <p><strong>0 Results found!!!</strong></p> <br></br> <%
 				}
 				else{
 				    %>
+				    <p><strong><% out.print(request.getAttribute("total docs")); %> results found</strong></p>
 				    <br></br>
 				    <%
 				}

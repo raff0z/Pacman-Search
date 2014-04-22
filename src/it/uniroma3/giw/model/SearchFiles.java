@@ -44,11 +44,10 @@ public class SearchFiles {
 		Query queryObj = parser.parse(query);
 
 		TopDocs results = searcher.search(queryObj, start * hitsPerPage);
-		//TODO pagination
 		
 		totalDoc = results.totalHits; 
 		
-			ScoreDoc[] hits = results.scoreDocs;
+		ScoreDoc[] hits = results.scoreDocs;
 		//System.out.println(hits.length);
 		DocumentResult[] documents;
 
