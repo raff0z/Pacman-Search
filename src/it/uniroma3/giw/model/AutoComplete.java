@@ -33,7 +33,7 @@ public class AutoComplete{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		List<LookupResult> resultsList = lookup.lookup(query, true, 5);		
+		List<LookupResult> resultsList = lookup.lookup(query, false, 5);		
 		return resultsList;
 	}
 
