@@ -86,7 +86,7 @@ public class ActionQueryProcessing implements Action {
 				Integer realStartPaging = 1;
 				
 				if(start > 5){
-					realStartPaging = start - 6;
+					realStartPaging = start - 5;
 				}
 				
 				request.setAttribute("total docs", totalDoc);
