@@ -75,6 +75,22 @@ public class ActionQueryProcessing implements Action {
 				    totalPages = totalDoc/10 +1;
 				}
 				
+				//per paging dinamico
+				
+				Integer endPaging = start + 5;
+				
+				if(endPaging > totalPages){
+				    endPaging = totalPages;
+				}
+				
+				Integer realStartPaging = 1;
+				
+				if(start > 5){
+					realStartPaging = start - 6;
+				}
+				
+				request.setAttribute("end paging", endPaging);
+				request.setAttribute("real start paging", realStartPaging);
 				request.setAttribute("totalPages", totalPages);
 				request.setAttribute("query", query);
 				request.setAttribute("results", hits);

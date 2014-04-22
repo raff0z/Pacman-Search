@@ -85,7 +85,6 @@
 				<ul class="pagination">
 		
 					<%
-					Integer pages = (Integer) request.getAttribute("totalPages");
 					String startString = request.getParameter("start");
 					
 					Integer start;
@@ -95,17 +94,8 @@
 					   start = Integer.valueOf(request.getParameter("start"));
 					}
 					
-					Integer end = start + 5;
-					
-					if(end > pages){
-					    end = pages;
-					}
-					
-					Integer realStart = 1;
-					
-					if(start > 5){
-						realStart = start - 6;
-					}
+					Integer realStart = (Integer) request.getAttribute("real start paging");					
+					Integer end = (Integer) request.getAttribute("end paging");
 					
 					for(int i=realStart ; i<= end; i++ ){
 					%>
