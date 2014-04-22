@@ -54,13 +54,13 @@ public class ActionQueryProcessing implements Action {
 				
 				
 				if(hits.length > 0) {
-					String[] keywords = hits[0].getKeywords().split(",");
+				    	String keywords = hits[0].getKeywords();
+				    	if(keywords != null){
+            				    	String[] keywordSplitted = keywords.split(",");
+            					
+            					request.setAttribute("keywords", keywordSplitted);
+				    	}
 					
-//					if(keywords.length >= 5){
-//					    keywords = Arrays.copyOfRange(keywords, 0, 5);
-//					}
-					
-					request.setAttribute("keywords", keywords);
 					
 					
 				}
