@@ -4,6 +4,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Pacman - Search</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script src="js/jquery.autocomplete.js"></script>
+<script>
+	jQuery(function() {
+		$("#query").autocomplete("list.jsp");
+	});
+</script>
 </head>
 <body>
 <div class="container">
@@ -19,7 +27,7 @@
 			<div class="col-lg-6 col-lg-offset-3">
 				<form class="form-group" action="query.do" method="POST">
 					<div class="input-group">
-		     			 <input type="text" class="form-control" name="query" required>
+		     			 <input type="text" id="query" class="form-control" name="query" required>
 					      <span class="input-group-btn">
 					        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" ><i class="glyphicon glyphicon-search glyphicon-search-index"></i></button>
 					      </span>

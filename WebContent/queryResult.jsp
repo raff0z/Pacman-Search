@@ -11,7 +11,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Query Results</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
+<script src="js/jquery.autocomplete.js"></script>
+<script>
+	jQuery(function() {
+		$("#query").autocomplete("list.jsp");
+	});
+</script>
 </head>
 <body >
 	<div class="container voffset2	">
@@ -19,7 +28,7 @@
 		
 		<form action="query.do" method="POST">
 			<div class="input-group">
-     			 <input type="text" class="form-control" value="<% out.print(request.getAttribute("query")); %>" name="query" required >
+     			 <input type="text" id="query" class="form-control" value="<% out.print(request.getAttribute("query")); %>" name="query" required >
 			      <span class="input-group-btn">
 			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" ><i class="glyphicon glyphicon-search glyphicon-search-result"></i></button>
 			      </span>
