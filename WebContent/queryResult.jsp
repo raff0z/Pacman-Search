@@ -1,8 +1,11 @@
+<%@page import="it.uniroma3.giw.model.AutoComplete"%>
 <%@page import="org.apache.lucene.search.ScoreDoc"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="it.uniroma3.giw.model.DocumentResult"%>
 <%@page import="org.apache.lucene.*" %>
+<% AutoComplete autoComplete = new AutoComplete(); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +25,6 @@
 			      </span>
     		</div>
 		</form>
-		
 		
 			<%if(request.getAttribute("did you mean") != null) {%>
 			<p class="voffset2"><a href="query.do?query=<% out.print(request.getAttribute("did you mean"));%>"><strong>Forse cercavi: <% out.print(request.getAttribute("did you mean"));%></strong></a></p>

@@ -29,7 +29,6 @@ public class Controller extends HttpServlet {
 		
 		this.comand2action.put("query", "action.ActionQueryProcessing");
 		this.output2page.put("results", "/queryResult.jsp");
-
 	}
 	//nel nostro caso svolgono la stessa funzione
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
