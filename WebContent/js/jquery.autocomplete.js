@@ -1,7 +1,7 @@
 /*
  * jQuery Autocomplete plugin 1.1
  *
- * Copyright (c) 2009 Jörn Zaefferer
+ * Copyright (c) 2009 Jï¿½rn Zaefferer
  *
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
@@ -406,11 +406,11 @@ $.Autocompleter = function(input, options) {
 };
 
 $.Autocompleter.defaults = {
-	inputClass: "ac_input",
+	inputClass: "form-control",
 	resultsClass: "ac_results",
 	loadingClass: "ac_loading",
 	minChars: 1,
-	delay: 400,
+	delay: 100,
 	matchCase: false,
 	matchSubset: true,
 	matchContains: false,
@@ -421,7 +421,7 @@ $.Autocompleter.defaults = {
 	selectFirst: true,
 	formatItem: function(row) { return row[0]; },
 	formatMatch: null,
-	autoFill: false,
+	autoFill: true,
 	width: 0,
 	multiple: false,
 	multipleSeparator: ", ",
