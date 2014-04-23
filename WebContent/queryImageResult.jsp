@@ -70,7 +70,7 @@
 									<h6>
 										<font color="green">
 											<b>
-												<% out.print(doc.getPath()); %>
+												<% out.print(doc.getShortPath()); %>
 											</b>
 										</font>
 									</h6>
