@@ -27,10 +27,10 @@ public class Controller extends HttpServlet {
 		this.comand2action = new HashMap<String, String>();
 		this.output2page = new HashMap<String, String>();
 		
-		this.comand2action.put("query", "action.ActionImageQueryProcessing");
-//		this.comand2action.put("query", "action.ActionQueryProcessing");
+		this.comand2action.put("query", "action.ActionQueryProcessing");
+		this.comand2action.put("queryimage.do", "action.ActionImageQueryProcessing");
 		this.output2page.put("results", "/queryResult.jsp");
-		this.output2page.put("results", "/queryImageResult.jsp");
+		this.output2page.put("resultsImage", "/queryImageResult.jsp");
 	}
 	//nel nostro caso svolgono la stessa funzione
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
