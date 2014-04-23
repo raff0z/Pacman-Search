@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 public class Controller extends HttpServlet {
-	//HttpServlet è serializzabile, quindi necessità di un id statico
+	//HttpServlet �� serializzabile, quindi necessit�� di un id statico
 	private static final long serialVersionUID = 1L;
 
 	//Mappe che gestiscono il mapping tra comando e azione e tra esito e pagina
@@ -28,7 +28,7 @@ public class Controller extends HttpServlet {
 		this.output2page = new HashMap<String, String>();
 		
 		this.comand2action.put("query", "action.ActionQueryProcessing");
-		this.comand2action.put("queryimage.do", "action.ActionImageQueryProcessing");
+		this.comand2action.put("queryimage", "action.ActionImageQueryProcessing");
 		this.output2page.put("results", "/queryResult.jsp");
 		this.output2page.put("resultsImage", "/queryImageResult.jsp");
 	}
@@ -46,10 +46,10 @@ public class Controller extends HttpServlet {
 		}
 
 		else {
-			//Se non è nulla provo a creare dinamicamente il tipo di azione associata
+			//Se non �� nulla provo a creare dinamicamente il tipo di azione associata
 			Action action = null;
 			try {
-				//La creazione di azione necessità del parametro HettpServletRequest, lo imposto prelevando il costruttore dalla classe azione e
+				//La creazione di azione necessit�� del parametro HettpServletRequest, lo imposto prelevando il costruttore dalla classe azione e
 				//passando request come parametro effettivo
 				actionName = "it.uniroma3.giw."+actionName;
 				action = (Action)Class.forName(actionName).newInstance();
@@ -79,7 +79,7 @@ public class Controller extends HttpServlet {
 	//Metodo che estrae il comando a partire dall'url
 	private static String readCommand(String servletPath) {
 		//il metodo split separa la stringa in n stringhe (che riporta in un array) secondo una espressione regolare
-		String[] path = servletPath.split("/"); //separo l'url così da poter prendere l'ultima stringa dopo /
+		String[] path = servletPath.split("/"); //separo l'url cos�� da poter prendere l'ultima stringa dopo /
 		
 		String command = path[path.length-1].split("\\.")[0]; //prendo l'ultima stringa del percorso e la separo con il .do
 		return command;

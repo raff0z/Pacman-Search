@@ -73,18 +73,7 @@
 										</font>
 									</h6>
 								</div>
-								<div>
-									<a href="query.do?query=<% out.print(doc.getMoreLikeThis()); %>" >
-									 Similar
-									</a>
-								</div>
-							</div>
-							<div class="highlight">
-								<p>
-								<% 
-							for(String near : doc.getNear())
-							out.print(near + "..."); 
-							%>
+								
 							</div>
 							</li>
 							
@@ -131,23 +120,7 @@
 			
 		</div>	
 		
-		<div class="col-md-offset-10">
-			<%
-			String[] correlati = (String[]) request.getAttribute("keywords");
-			if(correlati != null){%>
-			<div class="highlight-inverted">
-				<p class="text-center"><strong>Keywords</strong></p>
-			</div>
-			<div class="bs-example">
-				<%
-				for (String keyword : correlati){
-					%>
-					<p><a href="query.do?query=<% out.print(keyword);%>"><% out.print(keyword);%></a></p>
-					
-				<%}
-				}%>
-			</div>
-		</div>
+		
 	</div>
 </body>
 </html>

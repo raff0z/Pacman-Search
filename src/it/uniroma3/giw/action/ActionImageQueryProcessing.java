@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 
-import net.semanticmetadata.lire.ImageSearchHits;
-
 
 public class ActionImageQueryProcessing implements Action {
 	
@@ -73,7 +71,7 @@ public class ActionImageQueryProcessing implements Action {
 				request.setAttribute("totalPages", totalPages);
 				request.setAttribute("query", query);
 				request.setAttribute("results", hits);
-				return "results";
+				return "resultsImage";
 			} catch (ParseException | IOException e) {
 				e.printStackTrace();
 			}
