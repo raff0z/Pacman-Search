@@ -71,7 +71,10 @@ public class DocumentResult {
 	    this.moreLikeThis = moreLikeThis;
 	}
 	
-	
+	public String getFileName(){
+		String s = this.document.get("name");
+		return s;
+	}
 	
 }	
 	

@@ -65,6 +65,7 @@
 								</a>
 								</h4>
 								<p> Score: <% out.print(doc.getScore()); %></p>
+								<img src="${pageContext.request.contextPath}/documents/images/<% out.print(doc.getFileName()); %>" height="250" width="250" />
 								<div>
 									<h6>
 										<font color="green">

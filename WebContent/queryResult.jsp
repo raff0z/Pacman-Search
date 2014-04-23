@@ -60,7 +60,7 @@
 							<li>
 							<div class="bs-example">
 								<h4>
-								<a href="<% out.print("file:///" + doc.getPath()); %>" target="_blank">
+								<a href="${pageContext.request.contextPath}/documents/<% out.print(doc.getShortPath()); %>" target="_blank">
 									 <% out.print(doc.getTitle()); %>
 								</a>
 								</h4>

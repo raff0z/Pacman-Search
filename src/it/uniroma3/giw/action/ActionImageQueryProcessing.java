@@ -38,8 +38,11 @@ public class ActionImageQueryProcessing implements Action {
 				    start = Integer.parseInt(stringStart);
 				}
 				
+				query += "*";
+				
 				hits = searchImages.doSearch(query,start);
 				    
+				query = query.subSequence(0, query.length()-1).toString();
 				
 				int totalPages;
 				
