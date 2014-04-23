@@ -27,7 +27,7 @@ public class Controller extends HttpServlet {
 		this.comand2action = new HashMap<String, String>();
 		this.output2page = new HashMap<String, String>();
 		
-		this.comand2action.put("query", "action.ActionQueryProcessing");
+		this.comand2action.put("query", "action.ActionImageQueryProcessing");
 		this.output2page.put("results", "/queryResult.jsp");
 	}
 	//nel nostro caso svolgono la stessa funzione

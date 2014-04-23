@@ -5,9 +5,6 @@ import it.uniroma3.giw.model.DocumentResult;
 import it.uniroma3.giw.model.SearchFiles;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -103,9 +100,5 @@ public class ActionQueryProcessing implements Action {
 
 		return "error";
 	}
-		
-		
-		
-	
 
 }
