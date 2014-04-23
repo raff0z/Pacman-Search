@@ -120,7 +120,5 @@ public class SearchFiles {
 	public void setHitsPerPage(int hitsPerPage) {
 	    this.hitsPerPage = hitsPerPage;
 	}
-	
-	
-	
+		
 }

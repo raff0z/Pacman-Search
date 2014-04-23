@@ -1,64 +1,79 @@
 package it.uniroma3.giw.model;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-
+import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexReader;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.FSDirectory;
-
-import net.semanticmetadata.lire.DocumentBuilder;
-import net.semanticmetadata.lire.ImageSearchHits;
-import net.semanticmetadata.lire.ImageSearcher;
-import net.semanticmetadata.lire.ImageSearcherFactory;
+import org.apache.lucene.util.Version;
 
 public class SearchImages {
 	
+	private String field = "title";
 	private DirectoryReader reader;
-	private String indexPath;
+	private IndexSearcher searcher;
+	private StandardAnalyzer analyzer;
+	private int totalDoc;	
+	private int hitsPerPage = 10;
+	
 	
 	public SearchImages(String indexPath) throws IOException {
-		this.indexPath = indexPath;
 		this.reader = DirectoryReader.open(FSDirectory.open(new File(indexPath)));
+		this.searcher = new IndexSearcher(this.reader);
+		this.analyzer = new StandardAnalyzer(Version.LUCENE_47);	
 	}
 	
-    public ImageSearchHits doSearch(String query)  {
+    public DocumentResult[] doSearch(String query, int start) throws ParseException, IOException  {
 
-    	BufferedImage img = null;
-        
-        if (indexPath.length() > 0) {
-            File f = new File(indexPath);
-            if (f.exists()) {
-                try {
-                    img = ImageIO.read(f);
-                } catch (IOException e) {
-                    e.printStackTrace();  
-                }
-            }
-        }
-        
-        System.out.println(img); //é null
+    	QueryParser parser = new QueryParser(Version.LUCENE_47, field, this.analyzer);
+		Query queryObj = parser.parse(query);
 
- 
-        ImageSearcher searcher = ImageSearcherFactory.createCEDDImageSearcher(10);
-        
-        ImageSearchHits hits = null;
-        
-        try {
-			hits = searcher.search(img, reader);
-			
-			for (int i = 0; i < hits.length(); i++) {
-	            String fileName = hits.doc(i).getValues(DocumentBuilder.FIELD_NAME_IDENTIFIER)[0];
-	            System.out.println(hits.score(i) + ": \t" + fileName);
-	        }
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		TopDocs results = searcher.search(queryObj, start * hitsPerPage);
+		
+		totalDoc = results.totalHits; 
+		
+		ScoreDoc[] hits = results.scoreDocs;
+		//System.out.println(hits.length);
+		DocumentResult[] documents;
+
+		int realStart =  (start-1)*hitsPerPage;
+		
+		int end = realStart + hitsPerPage;
+		
+		if(end>=totalDoc){
+		    documents = new DocumentResult[totalDoc - realStart];
+		    end = totalDoc;
+		}else{
+		    documents = new DocumentResult[hitsPerPage];
 		}
-        
-        return hits;
+		
+		for (int i = realStart ; i < end; i++){
+			Document document = searcher.doc(hits[i].doc);
+			DocumentResult documentResult = new DocumentResult(hits[i], document);
+			documents[i-realStart] = documentResult;
+		}
+
+		return documents;
     }
+    
+	public int getTotalDoc() {
+	    return totalDoc;
+	}
+
+	public int getHitsPerPage() {
+	    return hitsPerPage;
+	}
+
+	public void setHitsPerPage(int hitsPerPage) {
+	    this.hitsPerPage = hitsPerPage;
+	}
+	
 }
