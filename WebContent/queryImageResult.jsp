@@ -31,6 +31,7 @@
      			 <input type="text" id="query" class="form-control" value="<% out.print(request.getAttribute("query")); %>" name="query" required >
 			      <span class="input-group-btn">
 			        <button class="btn btn-default btn-primary" type="submit" value="Query" name="query" ><i class="glyphicon glyphicon-search glyphicon-search-result"></i></button>
+			        <button class="btn btn-default btn-primary" type="submit" value="QueryImage" name="queryimage"  onclick="form.action='queryimage.do';"  ><i class="glyphicon glyphicon-picture glyphicon-picture-index"></i></button>
 			      </span>
     		</div>
 		</form>
